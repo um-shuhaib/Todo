@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views import View
-from TodoApp.forms import UserRegisterForm,UserLoginForm
+from TodoApp.forms import UserRegisterForm,UserLoginForm,TodoForm
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -43,3 +43,9 @@ class UserLoginView(View):
 class HomeView(View):
     def get(self,request):
         return render(request,"home.html")
+    
+
+class CreateTodoView(View):
+    def get(self,request):
+        form=TodoForm()
+        return render(request,"createTodo.html",{"form":form})
