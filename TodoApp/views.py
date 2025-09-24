@@ -17,10 +17,10 @@ class UserRegisterView(View):
             # form.save()  will not encript the pass so
             User.objects.create_user(**form.cleaned_data)
             messages.success(request,"registration successful")
-            return HttpResponse("registration success")
+            return redirect("login")
         else:
-            messages.error(request,"not registered")
-            return HttpResponse("registration Not success")
+            messages.warning(request,"not registered")
+            return redirect("register")
         
 
 
@@ -34,7 +34,12 @@ class UserLoginView(View):
         passw=request.POST.get("password")
         res = authenticate(request,username=username,password=passw)
         if res:
-            messages.success(request,"registration successful")
-            return redirect("register")
+            messages.success(request,"Login successful")
+            return redirect("home")
         else:
-            return HttpResponse("login Not successful")
+            messages.warning(request,"Invalid Credential")
+            return redirect("login")
+        
+class HomeView(View):
+    def get(self,request):
+        return render(request,"home.html")
