@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views import View
-from TodoApp.forms import UserRegisterForm,UserLoginForm,TodoForm
+from TodoApp.forms import UserRegisterForm,UserLoginForm,TodoForm,TodoEditForm
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -70,4 +70,15 @@ class DeleteView(View):
     
 class UpdateView(View):
     def get(self,request,**kwargs):
-        
+        todo=Todo.objects.get(id=kwargs.get("id"))
+        form=TodoEditForm(instance=todo)
+        return render(request,"todoUpdate.html",{"form":form})
+    
+    def post(self,request,**kwargs):
+        todo=Todo.objects.get(id=kwargs.get("id"))
+        form_instances=TodoEditForm(request.POST,instance=todo)
+        if form_instances.is_valid():
+            form_instances.save()
+            messages.warning(request,"Todo deleted succesfully")
+            return redirect("home")
+

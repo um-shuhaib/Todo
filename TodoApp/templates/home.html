@@ -26,7 +26,7 @@
         <td>{{i.due_date}}</td>
         <td>{{i.status}}</td>
         <td>
-            <a class="btn btn-info" href="">Update</a>
+            <a class="btn btn-info" href="{% url 'update' i.id %}">Update</a>
             <a class="btn btn-danger" href="{% url 'delete' i.id %}">Delete</a>
         </td>
     </tr>
