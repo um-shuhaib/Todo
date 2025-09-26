@@ -44,7 +44,7 @@ class UserLoginView(View):
         
 class HomeView(View):
     def get(self,request):
-        todo=Todo.objects.filter(user=request.user)
+        todo=Todo.objects.filter(user=request.user,status="pending")
         return render(request,"home.html",{"todo":todo})
     
 
