@@ -16,3 +16,8 @@ class TodoForm(forms.ModelForm):
     class Meta:
         model=Todo
         fields=["title","content","due_date"]
+        widgets={
+            'title':forms.TextInput(attrs={'class':'form-control'}),
+            'content':forms.Textarea(attrs={'class':'form-control'}),
+            'due_date':forms.DateInput(attrs={'class':'form-control','type':'date'}),
+        }

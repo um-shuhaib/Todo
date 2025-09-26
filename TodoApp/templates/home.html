@@ -2,30 +2,41 @@
 
 {% block content %}
 
-<div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center">
-{% for i in messages %}
-     {% if i.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>{{i}}</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endif %}
-     {% if i.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{i}}</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endif %}
-     {% if i.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>{{i}}</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endif %}
+<div class="d-flex flex-column w-100 vh-100 align-items-center justify-content-center">
+
+    
+<div class="container">
+    <table class="table table-hover table-striped">
+    <tr >
+        <th>sl.no</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Added Date</th>
+        <th>Due Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+        
+    </tr>
+    {% for i in todo %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.title}}</td>
+        <td>{{i.content}}</td>
+        <td>{{i.added_date}}</td>
+        <td>{{i.due_date}}</td>
+        <td>{{i.status}}</td>
+        <td>
+            <a class="btn btn-info" href="">Update</a>
+            <a class="btn btn-danger" href="{% url 'delete' i.id %}">Delete</a>
+        </td>
+    </tr>
     {% endfor %}
-    <button class="btn btn-primary">
-      <i class="fab fa-accessible-icon me-1"></i>Hello, world!
-    </button>
+
+</table>
+</div>
+
+
+
     </div>
 {% endblock %}
  

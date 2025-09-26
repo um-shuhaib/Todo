@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+from TodoApp.models import Todo
 
 # Create your views here.
 class UserRegisterView(View):
@@ -34,6 +35,7 @@ class UserLoginView(View):
         passw=request.POST.get("password")
         res = authenticate(request,username=username,password=passw)
         if res:
+            login(request,res)
             messages.success(request,"Login successful")
             return redirect("home")
         else:
@@ -42,10 +44,30 @@ class UserLoginView(View):
         
 class HomeView(View):
     def get(self,request):
-        return render(request,"home.html")
+        todo=Todo.objects.filter(user=request.user)
+        return render(request,"home.html",{"todo":todo})
     
 
 class CreateTodoView(View):
     def get(self,request):
         form=TodoForm()
         return render(request,"createTodo.html",{"form":form})
+    
+    def post(self,request):
+        form_instances=TodoForm(request.POST)
+        print(request.user)
+        if form_instances.is_valid():
+            Todo.objects.create(**form_instances.cleaned_data,user=request.user)
+            messages.success(request,"Todo Added")
+            return redirect("home")
+            
+class DeleteView(View):
+    def get(self,request,**kwargs):
+        todo=Todo.objects.get(id=kwargs.get("id"))
+        todo.delete()
+        messages.warning(request,"Todo deleted succesfully")
+        return redirect("home")
+    
+class UpdateView(View):
+    def get(self,request,**kwargs):
+        

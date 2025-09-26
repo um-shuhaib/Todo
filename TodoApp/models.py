@@ -13,3 +13,4 @@ class Todo(models.Model):
         ("completed","completed")
     )
     status=models.CharField(max_length=50,default="pending",choices=options)
+    

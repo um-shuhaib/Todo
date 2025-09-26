@@ -22,29 +22,50 @@
     <title>Hello, world!</title>
   </head>
   <body>
+    
+
+    
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand ps-1" href="#">TODO</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="{% url 'createtodo' %}">Add Todo</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
+        <a class="nav-link" href="#">Logout</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+    
     </ul>
   </div>
 </nav>
 
+{% for i in messages %}
+     {% if i.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        <strong>{{i}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+     {% if i.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <strong>{{i}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+     {% if i.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        <strong>{{i}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endfor %}
 {%block content%}
 
 {% endblock %}
@@ -52,8 +73,8 @@
 
 
 
-<div class="bg-dark text-light d-flex justify-content-center align-content-center text-center">
-    <p>&copy; All Right Reserved</p>
+<div class="bg-dark text-light d-flex justify-content-center align-items-center" style="height: 50px;">
+    <p class="m-0">&copy; All Right Reserved</p>
 </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
