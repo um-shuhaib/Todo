@@ -6,6 +6,9 @@
 
     
 <div class="container">
+    {% if msg %}
+    <h2>{{msg}} - You must login first <a href="{% url 'login' %}">here</a></h2>
+    {% else %}
     <table class="table table-hover table-striped">
     <tr >
         <th>sl.no</th>
@@ -33,6 +36,8 @@
     {% endfor %}
 
 </table>
+
+{% endif %}
 </div>
 
 

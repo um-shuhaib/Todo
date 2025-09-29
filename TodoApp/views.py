@@ -44,8 +44,13 @@ class UserLoginView(View):
         
 class HomeView(View):
     def get(self,request):
-        todo=Todo.objects.filter(user=request.user,status="pending")
-        return render(request,"home.html",{"todo":todo})
+        if request.user.is_authenticated:
+            todo=Todo.objects.filter(user=request.user,status="pending")
+            return render(request,"home.html",{"todo":todo})
+        else:
+            messages.success(request,"You must Login first")
+            return render(request,"home.html",{"msg":"No Data"})
+
     
 
 class CreateTodoView(View):
@@ -82,3 +87,8 @@ class UpdateView(View):
             messages.warning(request,"Todo deleted succesfully")
             return redirect("home")
 
+class LogoutView(View):
+    def get(self,request):
+        logout(request)
+        messages.success(request,"Logout succesfully")
+        return redirect("login")
