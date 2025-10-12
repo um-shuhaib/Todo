@@ -23,7 +23,7 @@ urlpatterns = [
     path("",views.UserLoginView.as_view(),name="login"),
     path("home",views.HomeView.as_view(),name="home"),
     path("create",views.CreateTodoView.as_view(),name="createtodo"),
-    path("delete/<int:id>",views.DeleteView.as_view(),name="delete"),
+    path("delete/<int:id>",views.DeleteView1.as_view(),name="delete"),
     path("update/<int:id>",views.UpdateView1.as_view(),name="update"),
     path("logout",views.LogoutView.as_view(),name="logout"),
 

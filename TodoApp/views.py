@@ -105,12 +105,23 @@ class CreateTodoView(CreateView):
 
 
 
-class DeleteView(View):
-    def get(self,request,**kwargs):
-        todo=Todo.objects.get(id=kwargs.get("id"))
-        todo.delete()
-        messages.warning(request,"Todo deleted succesfully")
-        return redirect("home")
+# class DeleteView(View):
+#     def get(self,request,**kwargs):
+#         todo=Todo.objects.get(id=kwargs.get("id"))
+#         todo.delete()
+#         messages.warning(request,"Todo deleted succesfully")
+#         return redirect("home")
+
+
+class DeleteView1(DeleteView):
+    model=Todo
+    pk_url_kwarg='id'
+    success_url=reverse_lazy("home")
+    template_name="confirm_delete.html"
+
+
+
+
     
 # class UpdateView(View):
 #     def get(self,request,**kwargs):
